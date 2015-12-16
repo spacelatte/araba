@@ -1,6 +1,0 @@
-[submodule "html5-qrcode"]
-	path = html5-qrcode
-	url = https://github.com/dwa012/html5-qrcode.git
-[submodule "src/jsqrcode"]
-	path = src/jsqrcode
-	url = https://github.com/LazarSoft/jsqrcode
