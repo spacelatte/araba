@@ -1,13 +1,88 @@
 <html>
 <head>
-	<link rel=stylesheet type="text/css" href="style.css">
-	<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+	<!-- link rel=stylesheet type="text/css" href="style.css" -->
+	<script type="text/javascript" src="jquery-2.1.4.min.js" _src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 	<meta name="viewport" content="initial-scale=0.8, maximum-scale=1.1, width=device-width, user-scalable=no" />
 	<meta name="theme-color" content="#2e4372">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="mobile-web-app-capable" content="yes">
+	<script type="text/javascript" src="html5-qrcode/lib/jsqrcode-combined.min.js" ></script>
+	<script type="text/javascript" src="html5-qrcode/lib/html5-qrcode.min.js" ></script>
+	<style type="text/css" >
+		html, body {
+			margin:0;
+			padding:0;
+			background:linear-gradient(to bottom,#265b68,#022b35,#69929c);
+			background-attachment:fixed;
+		}
+		* { transition:0.5s; }
+		.full {
+			position:fixed;
+			display:block;
+			border:0.5em solid #2e4372;
+			border-radius:50%;
+			box-shadow:0 0 1em black;
+			max-width:90vh;
+			max-height:90vw;
+			width:90%;
+			height:90%;
+			background-color:white;
+			background-image:none;
+			background-position:center center;
+			background-size:contain;
+			background-repeat:no-repeat;
+			margin:auto;
+			overflow:hidden;
+			margin:8% 4%;
+			margin:2%;
+			color:white;
+			font-size:48px;
+			text-align:center;
+			box-sizing:border-box;
+			text-shadow:
+			0 0 10px black,
+			0 0 10px black,
+			0 0 10px black,
+			0 0 10px black,
+			0 0 10px black,
+			0 0 20px black,
+			0 0 20px black;
+		}
+		#message { padding:15% 5%; text-align:center; }
+		video { object-fit:cover; opacity:0.8; border-radius:50%; }
+	</style>
 </head>
 <body>
-	not ready yet...
+	<div id=reader class=full ></div>
+	<div id=message class=full >initializing...</div>
+	<script type="text/javascript" >
+	var proc = false;
+	function close() {
+		$("#reader").html5_qrcode_stop();
+	}
+	function msgok() {
+			$("#message").css({"opacity":0}); 
+			proc = false;
+	}
+	function read() {
+		$("#message")[0].innerHTML = "sending...<br>\nplease wait...";
+		$("#message").css({"opacity":1});
+	}
+	function req(data) {
+		if(proc)
+			return;
+		else
+			proc = true;
+		$.post("//188.166.13.50/yoklama.php","data="+data,function() { $("#message")[0].innerHTML = "sent!"; setTimeout(function() { msgok(); },500); });
+	}
+	function camera() {
+		$("#reader").html5_qrcode(function(data){ req(data); console.log(data); read(); },function(error){ },function(videoError){ });
+	}
+	window.onload = function() {
+		camera();
+		$("#reader").css({"background-image":"url('//cdnqrcgde.s3-eu-west-1.amazonaws.com/wp-content/uploads/2013/11/jpeg.jpg')"});
+		setTimeout(function() { msgok(); },888);
+	}
+	</script>
 </body>
 </html>
