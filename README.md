@@ -1,0 +1,3 @@
+# BAU Electrical Car Project Main Repo
+
+### additional details are coming soon...
