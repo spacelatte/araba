@@ -8,6 +8,10 @@
 	<meta name="mobile-web-app-capable" content="yes">
 	<script type="text/javascript" src="html5-qrcode/lib/jsqrcode-combined.min.js" ></script>
 	<script type="text/javascript" src="html5-qrcode/lib/html5-qrcode.min.js" ></script>
+	<script>
+	if(window.location.protocol != "https:")
+		window.location.protocol = "https";
+	</script>
 	<style type="text/css" >
 		html, body {
 			margin:0;
@@ -61,7 +65,7 @@
 		$("#reader").html5_qrcode_stop();
 	}
 	function msgok() {
-			$("#message").css({"opacity":0}); 
+			$("#message").css({"opacity":0});
 			proc = false;
 	}
 	function read() {
